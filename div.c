@@ -1,52 +1,41 @@
 #include "monty.h"
-
 /**
- * f_div - divides the top two elements of the stack.
- * @head: stack head
- * @counter: line_number
- * Return: no return
-*/
+ * f_div - Divides the top two elements of the stack.
+ * @head: Pointer to the stack head
+ * @counter: Line number
+ * Return: No return value
+ */
 void f_div(stack_t **head, unsigned int counter)
 {
-    stack_t *h = *head;
-    int len = 0, aux;
+    stack_t *current;
+    int length = 0, quotient;
 
-    while (h)
+    current = *head;
+    while (current)
     {
-        h = h->next;
-        len++;
+        current = current->next;
+        length++;
     }
-
-    if (len < 2)
+    if (length < 2)
     {
-        fprintf(stderr, "L%d: can't div, stack too short\n", counter);
-        handle_error_cleanup(head);
+        fprintf(stderr, "L%d: Unable to perform division, insufficient stack elements\n", counter);
+        fclose(bus.file);
+        free(bus.content);
+        free_stack(*head);
+        exit(EXIT_FAILURE);
     }
-
-    h = *head;
-
-    if (h->n == 0)
+    current = *head;
+    if (current->n == 0)
     {
-        fprintf(stderr, "L%d: division by zero\n", counter);
-        handle_error_cleanup(head);
+        fprintf(stderr, "L%d: Division by zero\n", counter);
+        fclose(bus.file);
+        free(bus.content);
+        free_stack(*head);
+        exit(EXIT_FAILURE);
     }
-
-    aux = h->next->n / h->n;
-    h->next->n = aux;
-    *head = h->next;
-    free(h);
-}
-
-/**
- * handle_error_cleanup - closes file, frees memory, and exits on error
- * @head: stack head
- * Return: no return
- */
-void handle_error_cleanup(stack_t **head)
-{
-    fclose(bus.file);
-    free(bus.content);
-    free_stack(*head);
-    exit(EXIT_FAILURE);
+    quotient = current->next->n / current->n;
+    current->next->n = quotient;
+    *head = current->next;
+    free(current);
 }
 
