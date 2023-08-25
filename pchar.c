@@ -6,7 +6,7 @@
  * @line_number: line number in the file
  * Return: no return
  */
-void print_char_at_top(stack_t **stack_top, unsigned int line_number)
+void f_pchar(stack_t **stack_top, unsigned int line_number)
 {
     stack_t *current_node;
 

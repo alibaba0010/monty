@@ -5,7 +5,7 @@
  * @line_number: no used
  * Return: no return
 */
-void print_stack(stack_t **stack, unsigned int line_number)
+void f_pall(stack_t **stack, unsigned int line_number)
 {
 	stack_t *current;
 	(void)line_number;
